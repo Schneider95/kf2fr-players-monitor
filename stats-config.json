@@ -7,7 +7,8 @@
 		"Achievement_21",
 		"Achievement_25",
 		"Achievement_95",
-		"Achievement_100"
+		"Achievement_100",
+		"Achievement_105"
 	],
 	"achievementsHoe" : [
 		"Achievement_3",
@@ -17,7 +18,8 @@
 		"Achievement_23",
 		"Achievement_27",
 		"Achievement_97",
-		"Achievement_102"
+		"Achievement_102",
+		"Achievement_107"
 	],
 	"achievementsSuicidal" : [
 		"Achievement_2",
@@ -27,7 +29,8 @@
 		"Achievement_22",
 		"Achievement_26",
 		"Achievement_96",
-		"Achievement_101"
+		"Achievement_101",
+		"Achievement_106"
 	],
 	"achievementsPerksMax" : [
 		"Achievement_34",
