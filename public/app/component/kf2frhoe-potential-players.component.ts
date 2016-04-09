@@ -77,7 +77,7 @@ export class Kf2FrHoePotentialPlayersComponent {
 		this._playerService
 			.updatePlayer(steamId)
 			.subscribe((player) => {
-				if (player.needInviteForKf2frHoe) {
+				if (player.inviteNeededForKf2frHoe == 1) {
 					this._notificationService.add('inviteNeededForKf2FrHoe', player);
 					this.inviteNeededForKf2FrHoe(player);
 				} else {
