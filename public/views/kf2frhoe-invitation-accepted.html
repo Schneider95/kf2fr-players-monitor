@@ -1,0 +1,56 @@
+<div class="col-lg-8">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+   		<i class="fa fa-bar-chart-o fa-fw"></i> {{players.length}} joueurs dans le groupe Kf2FrHoe
+   		<div class="pull-right">
+        <a href="/exportPlayersKf2FrHoe">Exporter la liste</a>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped players">
+						  <thead>
+							  <tr>
+									<td>Name</td>
+									<td>Time played</td>
+									<td>Perks 25</td>
+									<td>HoE won</td>
+									<td>Sui. won</td>
+									<td>Hard won</td>
+									<td>Last check</td>
+									<td>Steam</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="#player of players">
+									<td>{{player.name}}</td>
+									<td>{{player.timePlayed | timePlayed}}h</td>
+									<td>{{player.nbPerksMax}}</td>
+									<td>{{player.nbHoeWon}}</td>
+									<td>{{player.nbSuicidalWon}}</td>
+									<td>{{player.nbHardWon}}</td>
+									<td>
+										{{player.lastCheck | humanReadableDate}}
+									</td>
+									<td>
+										<a href="http://steamcommunity.com/profiles/{{player.steamId}}">Steam</a>
+									</td>
+									<td>
+										<button type="button" 
+												class="btn btn-sm btn-default" 
+												[class.disabled]="player.updatePending === true"
+												(click)="updatePlayerStats(player.steamId)">
+											{{(player.updatePending) ? 'Mise à jour...' :'Mettre à jour'}}
+										</button>
+									</td>
+								</tr>
+							</tbody>
+            </table>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

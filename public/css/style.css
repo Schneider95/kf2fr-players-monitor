@@ -1,0 +1,11 @@
+.players {
+	font-size: 15px;
+}
+
+.enough {
+	background-color: #E6EE9C;
+}
+
+.not-enough {
+	background-color: #EF9A9A;
+}

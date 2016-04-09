@@ -1,0 +1,99 @@
+
+<div id="wrapper">
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">KF2 FR CRON</a>
+    </div>
+    <div class="navbar-default sidebar" role="navigation">
+      <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+					<li><a [routerLink]="['Scan']">Joueurs à analyser</a></li>
+					<li><a [routerLink]="['Kf2FrInviteNeeded']">Kf2Fr - Invitations à envoyer</a></li>
+					<li><a [routerLink]="['Kf2FrHoePotentialPlayers']">Kf2FrHoe - Joueurs potentiels</a></li>
+					<li><a [routerLink]="['Kf2FrHoeInviteNeeded']">Kf2FrHoe - Invitations à envoyer</a></li>
+					<li><a [routerLink]="['Kf2FrHoeInviteSent']">Kf2FrHoe - Invitations envoyées</a></li>
+					<li><a [routerLink]="['Kf2FrHoeInviteAccepted']">Kf2FrHoe - Invitations acceptées</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="page-wrapper">
+  	<div class="row">
+      <router-outlet></router-outlet>
+      <div class="col-lg-4">
+    		<div class="panel panel-default">
+        	<div class="panel-heading">
+            <i class="fa fa-bell fa-fw"></i> Notifications Panel
+        	</div>
+        	<div class="panel-body">
+            <div class="list-group">
+              <table class="table">
+                <tr *ngFor="#notification of _notificationService.notifications">
+
+                  <td *ngIf="notification.type == 'playerDeleted' && notification.reason == 'unknownCountry'" class="danger">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> à été supprimé, il n'a pas précisé son pays.
+                  </td>
+
+                  <td *ngIf="notification.type == 'playerDeleted' && notification.reason == 'dontHaveGame'" class="danger">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> à été supprimé, il n'a pas le jeu.
+                  </td>
+
+                	<td *ngIf="notification.type == 'playerDeleted' && notification.reason == 'notEnoughTimePlayed'" class="danger">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> à été supprimé, il n'a que {{notification.timePlayed}}h de jeu.
+                  </td>
+
+                  <td *ngIf="notification.type == 'playerDeleted' && notification.reason == 'badCountry'" class="danger">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> à été supprimé, il n'est pas francophone mais {{notification.country}}.
+                  </td>
+
+                  <td *ngIf="notification.type == 'scanPlayerFriendsRetrieved'"  class="info">
+                    Les amis du joueur <a href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> ont été récupérés.
+                  </td>
+
+                  <td *ngIf="notification.type == 'scanPlayerNeedInviteForKf2Fr'" class="success">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> mérite une invitation pour Kf2Fr. 
+                  </td>
+
+                  <td *ngIf="notification.type == 'scanPlayerNeedInviteForKf2FrHoe'" class="success">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> mérite une invitation pour Kf2FrHoe. 
+                  </td>
+
+                  <td *ngIf="notification.type == 'inviteSentForKf2Fr'" class="info">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> est marqué comme ayant reçu une invitation pour Kf2Fr.
+                  </td>
+
+                  <td *ngIf="notification.type == 'inviteNeededForKf2FrHoe'"  class="success">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> mérite invitation pour Kf2FrHoe.
+                  </td>
+
+                  <td *ngIf="notification.type == 'inviteNotNeededForKf2FrHoe'"  class="danger">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> ne mérite pas encore une invitation pour Kf2FrHoe.
+                  </td>
+
+                  <td *ngIf="notification.type == 'inviteSentForKf2FrHoe'"  class="success">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> est marqué comme ayant reçu une invitation pour Kf2FrHoe.
+                  </td>
+
+                  <td *ngIf="notification.type == 'inviteAcceptedForKf2FrHoe'" class="success">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> est marqué comme ayant accepté l'invitation pour Kf2FrHoe. 
+                  </td>
+
+                  <td *ngIf="notification.type == 'updateKf2FrHoePlayer'"  class="info">
+                    Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> dans le groupe Kf2FrHoe à été mis à jour.
+                  </td>
+                </tr>
+              </table>
+        	  </div>
+    		  </div>
+  		  </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+{
+  "name": "newfamily-example",
+  "version": "1.0.0",
+  "description": "Angular2 Gulp Typescript and Express",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "gulp build"
+  },
+  "keywords": [],
+  "author": "Maximilian Alexander <mbalex99@gmail.com> (http://www.blog.edenmsg.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "async": "1.5.2",
+    "colors": "1.1.2",
+    "cron":"1.1.0",
+    "del": "2.2.0",
+    "express":"latest",
+    "gulp": "3.9.0",
+    "gulp-concat": "2.6.0",
+    "gulp-sourcemaps": "1.6.0",
+    "gulp-typescript": "2.10.0",
+    "mysql": "2.10.2",
+    "promise": "7.1.1",
+    "run-sequence":"1.1.5",
+    "socket.io": "latest"
+  }
+}

@@ -1,0 +1,31 @@
+<div class="col-lg-8">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+   		<i class="fa fa-bar-chart-o fa-fw"></i> {{players.length}} joueurs à analyser
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped players">
+						  <thead>
+							  <tr>
+									<td>Steam ID</td>
+									<td>Profil Steam</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="#player of players">
+									<td>{{player.steamId}}</td>
+									<td>
+										<a target="_blank" href="http://steamcommunity.com/profiles/{{player.steamId}}">Steam</a>
+									</td>
+								</tr>
+							</tbody>
+            </table>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
