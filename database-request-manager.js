@@ -389,6 +389,7 @@ exports.updatePlayer = (player) => {
 	query += "name = '"+player.name.replace(/'/g, "\\'")+"', ";
 	query += "lastCheck = '"+player.lastCheck.toISOString().slice(0, 19).replace('T', ' ')+"', ";
 	query += "timePlayed = '"+player.timePlayed+"', ";
+	query += "timePlayed2LastWeeks = '"+player.timePlayed2LastWeeks+"', ";
 	query += "nbPerksMax = '"+player.nbPerksMax+"', ";
 	query += "nbHoeWon = '"+player.nbHoeWon+"', ";
 	query += "nbSuicidalWon = '"+player.nbSuicidalWon+"', ";

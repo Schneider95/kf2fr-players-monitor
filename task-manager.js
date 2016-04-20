@@ -153,6 +153,7 @@ var updatePlayer = (steamId) => {
 					if (element.appid == statsConfig.appId) {
 						hasGame = true;
 						player.timePlayed = element.playtime_forever;
+						player.timePlayed2LastWeeks = element.playtime_2weeks;
 					}
 				});
 

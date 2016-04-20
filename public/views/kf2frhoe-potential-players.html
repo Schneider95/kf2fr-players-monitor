@@ -10,20 +10,23 @@
             <table class="table table-bordered table-hover table-striped players">
 						  <thead>
 							  <tr>
-									<td>Name</td>
-									<td>Time played</td>
+									<td>Nom</td>
+									<td>Temps de jeu</td>
 									<td>Perks 25</td>
-									<td>HoE won</td>
-									<td>Sui. won</td>
-									<td>Hard won</td>
+									<td>HoE</td>
+									<td>Suicidal</td>
+									<td>Hard</td>
 									<td>Last check</td>
-									<td>Steam</td>
 									<td></td>
 								</tr>
 							</thead>
 							<tbody>
 								<tr *ngFor="#player of players">
-									<td>{{player.name}}</td>
+									<td>
+										<a target="_blank" href="http://steamcommunity.com/profiles/{{player.steamId}}">
+											{{player.name}}
+										</a>
+									</td>
 									<td [ngClass]="{enough: (player.timePlayed >= timePlayedNeededForKf2FrHoe), 'not-enough': (player.timePlayed < timePlayedNeededForKf2FrHoe)}">{{player.timePlayed | timePlayed}}h</td>
 									<td [ngClass]="{enough: (player.nbPerksMax >= nbPerksMaxNeeded), 'not-enough': (player.nbPerksMax < nbPerksMaxNeeded)}">{{player.nbPerksMax}}</td>
 									<td [ngClass]="{enough: (player.nbHoeWon >= nbHoeWonNeeded), 'not-enough': (player.nbHoeWon < nbHoeWonNeeded)}">{{player.nbHoeWon}}</td>
@@ -31,9 +34,6 @@
 									<td [ngClass]="{enough: (player.nbHardWon >= nbHardWonNeeded), 'not-enough': (player.nbHardWon < nbHardWonNeeded)}">{{player.nbHardWon}}</td>
 									<td>
 										{{player.lastCheck | humanReadableDate}}
-									</td>
-									<td>
-										<a target="_blank" href="http://steamcommunity.com/profiles/{{player.steamId}}">Steam</a>
 									</td>
 									<td>
 										<button type="button" 

@@ -11,14 +11,11 @@
 						  <thead>
 							  <tr>
 									<td>Steam ID</td>
-									<td>Profil Steam</td>
 								</tr>
 							</thead>
 							<tbody>
 								<tr *ngFor="#player of players">
-									<td>{{player.steamId}}</td>
-									<td>
-										<a target="_blank" href="http://steamcommunity.com/profiles/{{player.steamId}}">Steam</a>
+									<td><a target="_blank" href="http://steamcommunity.com/profiles/{{player.steamId}}">{{player.steamId}}</a>
 									</td>
 								</tr>
 							</tbody>
