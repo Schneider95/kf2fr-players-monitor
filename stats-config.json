@@ -44,11 +44,11 @@
 
 	"appId": "232090",
 
-	"nbHardWonNeededForKf2FrHoe": "8",
-	"nbHoeWonNeededForKf2FrHoe": "3",
-	"nbSuicidalWonNeededForKf2FrHoe": "7",
-	"nbPerksMaxNeededForKf2FrHoe": "5",
+	"nbHardWonNeededForKf2FrHoe": "9",
+	"nbHoeWonNeededForKf2FrHoe": "4",
+	"nbSuicidalWonNeededForKf2FrHoe": "8",
+	"nbPerksMaxNeededForKf2FrHoe": "6",
 
 	"timePlayedNeededForKf2Fr": "1200",
-	"timePlayedNeededForKf2FrHoe": "13200"
+	"timePlayedNeededForKf2FrHoe": "18000"
 }
