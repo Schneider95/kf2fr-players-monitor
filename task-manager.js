@@ -154,6 +154,14 @@ var updatePlayer = (steamId) => {
 						hasGame = true;
 						player.timePlayed = element.playtime_forever;
 						player.timePlayed2LastWeeks = element.playtime_2weeks;
+
+					    if (undefined === player.timePlayed2LastWeeks) {
+					    	player.timePlayed2LastWeeks = 0;
+				    	}
+
+                        if ('0000-00-00 00:00:00' == player.lastPeriodPlayed || 0 < player.timePlayed2LastWeeks)  {
+                            player.lastPeriodPlayed = new Date();
+                        }
 					}
 				});
 
