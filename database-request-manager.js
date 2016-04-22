@@ -386,11 +386,11 @@ exports.updatePlayer = (player) => {
 
 	var query = "UPDATE players SET ";
 	query += "name = '"+player.name.replace(/'/g, "\\'")+"', ";
-	query += "lastCheck = '"+dateNow.getFullYear()+'-'+("0" + (dateNow.getMonth() + 1)).slice(-2)+'-'+("0" + (dateNow.getDate() + 1)).slice(-2)+' '+dateNow.getHours()+':'+dateNow.getMinutes()+':'+dateNow.getSeconds()+"', ";
+	query += "lastCheck = '"+dateNow.getFullYear()+'-'+("0" + (dateNow.getMonth() + 1)).slice(-2)+'-'+("0" + (dateNow.getDate())).slice(-2)+' '+dateNow.getHours()+':'+dateNow.getMinutes()+':'+dateNow.getSeconds()+"', ";
 	query += "timePlayed = '"+player.timePlayed+"', ";
 
 	if ('0000-00-00 00:00:00' !== player.lastPeriodPlayed) {
-      	query += "lastPeriodPlayed = '"+player.lastPeriodPlayed.getFullYear()+'-'+("0" + (player.lastPeriodPlayed.getMonth() + 1)).slice(-2)+'-'+("0" + (player.lastPeriodPlayed.getDate() + 1)).slice(-2)+' '+player.lastPeriodPlayed.getHours()+':'+player.lastPeriodPlayed.getMinutes()+':'+player.lastPeriodPlayed.getSeconds()+"', ";
+      	query += "lastPeriodPlayed = '"+player.lastPeriodPlayed.getFullYear()+'-'+("0" + (player.lastPeriodPlayed.getMonth() + 1)).slice(-2)+'-'+("0" + (player.lastPeriodPlayed.getDate())).slice(-2)+' '+player.lastPeriodPlayed.getHours()+':'+player.lastPeriodPlayed.getMinutes()+':'+player.lastPeriodPlayed.getSeconds()+"', ";
 	}
 
 	query += "timePlayed2LastWeeks = '"+player.timePlayed2LastWeeks+"', ";
@@ -405,7 +405,7 @@ exports.updatePlayer = (player) => {
 	query += "inviteAcceptedForKf2frHoe = '"+player.inviteAcceptedForKf2frHoe+"' ";
 	query += "WHERE steamId = '"+player.steamId+"' ";
 	query += "LIMIT 1";
-
+	console.log(query);
     return new Promise((resolve, reject) => {
 
     	connection.query(query, (err, result) => {
