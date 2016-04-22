@@ -11,12 +11,12 @@
 						  <thead>
 							  <tr>
 									<td>Nom</td>
-									<td>Temps de jeu</td>
-									<td>Perks 25</td>
 									<td>HoE</td>
 									<td>Suicidal</td>
 									<td>Hard</td>
-									<td>Last check</td>
+									<td>Perks 25</td>
+									<td>Temps de jeu</td>
+									<td>Dernière vérification</td>
 									<td></td>
 								</tr>
 							</thead>
@@ -27,11 +27,12 @@
 											{{player.name}}
 										</a>
 									</td>
-									<td [ngClass]="{enough: (player.timePlayed >= timePlayedNeededForKf2FrHoe), 'not-enough': (player.timePlayed < timePlayedNeededForKf2FrHoe)}">{{player.timePlayed | timePlayed}}h</td>
-									<td [ngClass]="{enough: (player.nbPerksMax >= nbPerksMaxNeeded), 'not-enough': (player.nbPerksMax < nbPerksMaxNeeded)}">{{player.nbPerksMax}}</td>
 									<td [ngClass]="{enough: (player.nbHoeWon >= nbHoeWonNeeded), 'not-enough': (player.nbHoeWon < nbHoeWonNeeded)}">{{player.nbHoeWon}}</td>
 									<td [ngClass]="{enough: (player.nbSuicidalWon >= nbSuicidalWonNeeded), 'not-enough': (player.nbSuicidalWon < nbSuicidalWonNeeded)}">{{player.nbSuicidalWon}}</td>
 									<td [ngClass]="{enough: (player.nbHardWon >= nbHardWonNeeded), 'not-enough': (player.nbHardWon < nbHardWonNeeded)}">{{player.nbHardWon}}</td>
+									<td [ngClass]="{enough: (player.nbPerksMax >= nbPerksMaxNeeded), 'not-enough': (player.nbPerksMax < nbPerksMaxNeeded)}">{{player.nbPerksMax}}</td>
+									<td [ngClass]="{enough: (player.timePlayed >= timePlayedNeededForKf2FrHoe), 'not-enough': (player.timePlayed < timePlayedNeededForKf2FrHoe)}">{{player.timePlayed | timePlayed}}h</td>
+
 									<td>
 										{{player.lastCheck | humanReadableDate}}
 									</td>

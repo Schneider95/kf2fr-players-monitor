@@ -97,9 +97,9 @@ exports.getKf2FrInvitationNeeded = () => {
 	var query = "SELECT * FROM players ";
 	query += "WHERE inviteNeededForKf2fr = '1' ";
 	query += "AND inviteSentForKf2fr = '0' ";
-	query += "ORDER BY timePlayed DESC, nbPerksMax DESC, nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC";
+	query += "ORDER BY nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC, timePlayed DESC, nbPerksMax DESC";
 
-  	return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
 
     	connection.query(query, (err, result) => {
 			if (err) {
@@ -117,9 +117,9 @@ exports.getKf2FrHoeInvitationNeeded = () => {
 	query += "WHERE inviteNeededForKf2frHoe = '1' ";
 	query += "AND inviteSentForKf2frHoe = '0' ";
 	query += "AND inviteAcceptedForKf2frHoe = '0' ";
-	query += "ORDER BY timePlayed DESC, nbPerksMax DESC, nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC";
+	query += "ORDER BY nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC, timePlayed DESC, nbPerksMax DESC";
 
-  	return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
 
     	connection.query(query, (err, result) => {
 			if (err) {
@@ -137,9 +137,9 @@ exports.getKf2FrHoeInvitationSent = () => {
 	query += "WHERE inviteNeededForKf2frHoe = '1' ";
 	query += "AND inviteSentForKf2frHoe = '1' ";
 	query += "AND inviteAcceptedForKf2frHoe = '0' ";
-	query += "ORDER BY timePlayed DESC, nbPerksMax DESC, nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC";
-
-  	return new Promise((resolve, reject) => {
+        query += "ORDER BY nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC, nbPerksMax DESC, timePlayed DESC";
+    
+        return new Promise((resolve, reject) => {
 
     	connection.query(query, (err, result) => {
 			if (err) {
@@ -157,9 +157,9 @@ exports.getKf2FrHoeInvitationAccepted = () => {
 	query += "WHERE inviteNeededForKf2frHoe = '1' ";
 	query += "AND inviteSentForKf2frHoe = '1' ";
 	query += "AND inviteAcceptedForKf2frHoe = '1' ";
-	query += "ORDER BY timePlayed DESC, nbPerksMax DESC, nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC";
+    	query += "ORDER BY timePlayed DESC, nbPerksMax DESC, nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC";
 
-  	return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
 
     	connection.query(query, (err, result) => {
 			if (err) {
@@ -195,7 +195,7 @@ var getKf2FrHoePotentialPlayersQuery = () => {
 	query += "OR nbHoeWon >= '"+statsConfig.nbHoeWonNeededForKf2FrHoe+"' ";
 	query += "OR nbSuicidalWon >= '"+statsConfig.nbSuicidalWonNeededForKf2FrHoe+"' ";
 	query += "OR nbHardWon >= '"+statsConfig.nbHardWonNeededForKf2FrHoe+"') ";
-	query += "ORDER BY conditionReached DESC, timePlayed DESC, nbPerksMax DESC, nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC  ";
+	query += "ORDER BY conditionReached DESC, nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC, nbPerksMax DESC, timePlayed DESC  ";
 	query += "LIMIT 100 ";
 
 	return query;
