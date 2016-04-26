@@ -384,9 +384,11 @@ exports.updatePlayer = (player) => {
 
 	var dateNow = new Date();
 
+    player.lastCheck = new Date(); 
+    
 	var query = "UPDATE players SET ";
 	query += "name = '"+player.name.replace(/'/g, "\\'")+"', ";
-	query += "lastCheck = '"+dateNow.getFullYear()+'-'+("0" + (dateNow.getMonth() + 1)).slice(-2)+'-'+("0" + (dateNow.getDate())).slice(-2)+' '+dateNow.getHours()+':'+dateNow.getMinutes()+':'+dateNow.getSeconds()+"', ";
+	query += "lastCheck = '"+player.lastCheck.getFullYear()+'-'+("0" + (player.lastCheck.getMonth() + 1)).slice(-2)+'-'+("0" + (player.lastCheck.getDate())).slice(-2)+' '+player.lastCheck.getHours()+':'+player.lastCheck.getMinutes()+':'+player.lastCheck.getSeconds()+"', ";
 	query += "timePlayed = '"+player.timePlayed+"', ";
 
 	if ('0000-00-00 00:00:00' !== player.lastPeriodPlayed) {
