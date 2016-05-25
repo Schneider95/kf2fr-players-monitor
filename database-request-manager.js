@@ -174,31 +174,30 @@ exports.getKf2FrHoeInvitationAccepted = () => {
 
 var getKf2FrHoePotentialPlayersQuery = () => {
 
-	var query = "SELECT *, ";
-	query += "( ";
-	query += "(CASE WHEN timePlayed >= '"+statsConfig.timePlayedNeededForKf2FrHoe+"' THEN 1 ELSE 0 END)+ ";
-	query += "(CASE WHEN nbPerksMax >= '"+statsConfig.nbPerksMaxNeededForKf2FrHoe+"' THEN 1 ELSE 0 END)+ ";
-	query += "(CASE WHEN nbHoeWon >= '"+statsConfig.nbHoeWonNeededForKf2FrHoe+"' THEN 1 ELSE 0 END)+ ";
-	query += "(CASE WHEN nbSuicidalWon >= '"+statsConfig.nbSuicidalWonNeededForKf2FrHoe+"' THEN 1 ELSE 0 END)+ ";
-	query += "(CASE WHEN nbHardWon >= '"+statsConfig.nbHardWonNeededForKf2FrHoe+"' THEN 1 ELSE 0 END) ";
-	query += ") as conditionReached, ";
+    var query ="SELECT *, ";
+    query += "@ratioTimePlayed := (timePlayed / '"+statsConfig.timePlayedNeededForKf2FrHoe+"'), ";
+    query += "@ratioNbPerksMax := (nbPerksMax / '"+statsConfig.nbPerksMaxNeededForKf2FrHoe+"'), ";
+    query += "@ratioHoe := (nbHoeWon / '"+statsConfig.nbHoeWonNeededForKf2FrHoe+"'), ";
+    query += "@ratioSuicidal := (nbSuicidalWon / '"+statsConfig.nbSuicidalWonNeededForKf2FrHoe+"'), ";
+    query += "@ratioHard := (nbHardWon / '"+statsConfig.nbHardWonNeededForKf2FrHoe+"'), ";
+    query += "@scoreTimePlayed := (CASE WHEN (SELECT @ratioTimePlayed) > 1 THEN 1 ELSE (SELECT @ratioTimePlayed) END), ";
+    query += "@scoreNbPerksMax := (CASE WHEN (SELECT @ratioNbPerksMax) > 1 THEN 1 ELSE (SELECT @ratioNbPerksMax) END), ";
+    query += "@scoreHoe :=(CASE WHEN (SELECT @ratioHoe) > 1 THEN 1 ELSE (SELECT @ratioHoe) END), ";
+    query += "@scoreSuicidal :=(CASE WHEN (SELECT @ratioSuicidal) > 1 THEN 1 ELSE (SELECT @ratioSuicidal) END), ";
+    query += "@scoreHard :=(CASE WHEN (SELECT @ratioHard) > 1 THEN 1 ELSE (SELECT @ratioHard) END), ";
+    query += "((SELECT @scoreTimePlayed) + (SELECT @scoreNbPerksMax) + (SELECT @scoreHoe) + (SELECT @scoreSuicidal) + (SELECT @scoreHard)) as score ";
+    query += "FROM players ";
+    query += "WHERE inviteNeededForKf2frHoe = '0' ";
+    query += "AND timePlayed > 100 "
+    query += "AND (timePlayed >= '"+statsConfig.timePlayedNeededForKf2FrHoe+"' ";
+    query += " OR nbPerksMax >= '"+statsConfig.nbPerksMaxNeededForKf2FrHoe+"' ";
+    query += " OR nbHoeWon >= '"+statsConfig.nbHoeWonNeededForKf2FrHoe+"' ";
+    query += " OR nbSuicidalWon >= '"+statsConfig.nbSuicidalWonNeededForKf2FrHoe+"' ";
+    query += " OR nbHardWon >= '"+statsConfig.nbHardWonNeededForKf2FrHoe+"') ";
+    query += "ORDER BY score DESC, nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC, nbPerksMax DESC, timePlayed DESC ";
+    query += "LIMIT 100 ";
 
-	query += "(CASE WHEN timePlayed >= '"+statsConfig.timePlayedNeededForKf2FrHoe+"' THEN 1 ELSE 0 END) as conditionTime, ";
-	query += "(CASE WHEN nbPerksMax >= '"+statsConfig.nbPerksMaxNeededForKf2FrHoe+"' THEN 1 ELSE 0 END) as conditionPerk, ";
-	query += "(CASE WHEN nbHoeWon >= '"+statsConfig.nbHoeWonNeededForKf2FrHoe+"' THEN 1 ELSE 0 END) as conditionHoe, ";
-	query += "(CASE WHEN nbSuicidalWon >= '"+statsConfig.nbSuicidalWonNeededForKf2FrHoe+"' THEN 1 ELSE 0 END) as conditionSuicidal, ";
-	query += "(CASE WHEN nbHardWon >= '"+statsConfig.nbHardWonNeededForKf2FrHoe+"' THEN 1 ELSE 0 END) as conditionHard ";
-	query += "FROM players ";
-	query += "WHERE inviteNeededForKf2frHoe = '0' ";
-	query += "AND (timePlayed >= '"+statsConfig.timePlayedNeededForKf2FrHoe+"' ";
-	query += "OR nbPerksMax >= '"+statsConfig.nbPerksMaxNeededForKf2FrHoe+"' ";
-	query += "OR nbHoeWon >= '"+statsConfig.nbHoeWonNeededForKf2FrHoe+"' ";
-	query += "OR nbSuicidalWon >= '"+statsConfig.nbSuicidalWonNeededForKf2FrHoe+"' ";
-	query += "OR nbHardWon >= '"+statsConfig.nbHardWonNeededForKf2FrHoe+"') ";
-	query += "ORDER BY conditionReached DESC, nbHoeWon DESC, nbSuicidalWon DESC, nbHardWon DESC, nbPerksMax DESC, timePlayed DESC  ";
-	query += "LIMIT 100 ";
-
-	return query;
+    return query;
 };
 
 exports.getKf2FrHoePotentialPlayer = () => {
