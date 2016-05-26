@@ -1,3 +1,4 @@
+
 var statsConfig = require('./stats-config.json');
 var parameters = require('./parameters.json');
 
@@ -406,7 +407,7 @@ exports.updatePlayer = (player) => {
 	query += "inviteAcceptedForKf2frHoe = '"+player.inviteAcceptedForKf2frHoe+"' ";
 	query += "WHERE steamId = '"+player.steamId+"' ";
 	query += "LIMIT 1";
-	console.log(query);
+
     return new Promise((resolve, reject) => {
 
     	connection.query(query, (err, result) => {
