@@ -189,7 +189,7 @@ var getKf2FrHoePotentialPlayersQuery = () => {
     query += "((SELECT @scoreTimePlayed) + (SELECT @scoreNbPerksMax) + (SELECT @scoreHoe) + (SELECT @scoreSuicidal) + (SELECT @scoreHard)) as score ";
     query += "FROM players ";
     query += "WHERE inviteNeededForKf2frHoe = '0' ";
-    query += "AND timePlayed > 100 "
+    query += "AND timePlayed > 6000 "
     query += "AND (timePlayed >= '"+statsConfig.timePlayedNeededForKf2FrHoe+"' ";
     query += " OR nbPerksMax >= '"+statsConfig.nbPerksMaxNeededForKf2FrHoe+"' ";
     query += " OR nbHoeWon >= '"+statsConfig.nbHoeWonNeededForKf2FrHoe+"' ";
