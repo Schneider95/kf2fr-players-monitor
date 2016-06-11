@@ -8,7 +8,9 @@
 		"Achievement_25",
 		"Achievement_95",
 		"Achievement_100",
-		"Achievement_105"
+		"Achievement_105",
+		"Achievement_125",
+		"Achievement_120"
 	],
 	"achievementsHoe" : [
 		"Achievement_3",
@@ -19,7 +21,9 @@
 		"Achievement_27",
 		"Achievement_97",
 		"Achievement_102",
-		"Achievement_107"
+		"Achievement_107",
+		"Achievement_127",
+		"Achievement_122"
 	],
 	"achievementsSuicidal" : [
 		"Achievement_2",
@@ -30,7 +34,9 @@
 		"Achievement_26",
 		"Achievement_96",
 		"Achievement_101",
-		"Achievement_106"
+		"Achievement_106",
+		"Achievement_126",
+		"Achievement_121"
 	],
 	"achievementsPerksMax" : [
 		"Achievement_34",
@@ -39,12 +45,13 @@
 		"Achievement_49",
 		"Achievement_54",
 		"Achievement_59",
-		"Achievement_64"
+		"Achievement_64",
+		"Achievement_114"
 	],
 
 	"appId": "232090",
 
-	"nbHardWonNeededForKf2FrHoe": "9",
+	"nbHardWonNeededForKf2FrHoe": "10",
 	"nbHoeWonNeededForKf2FrHoe": "4",
 	"nbSuicidalWonNeededForKf2FrHoe": "8",
 	"nbPerksMaxNeededForKf2FrHoe": "6",

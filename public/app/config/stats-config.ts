@@ -6,5 +6,5 @@ export class StatsConfigService {
 	public nbPerksMaxNeeded= 6;
 	public nbHoeWonNeeded = 4;
 	public nbSuicidalWonNeeded = 8;
-	public nbHardWonNeeded = 9;
+	public nbHardWonNeeded = 10;
 }
