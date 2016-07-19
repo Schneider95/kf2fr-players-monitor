@@ -12,7 +12,7 @@ exports.exportPlayersKf2FrHoe = (request, response) => {
 
 		var today = new Date();
 
-		var textExport = '[h1]Mise a jour le '+today.getDate()+'/'+today.getMonth()+'/'+today.getFullYear()+'[/h1]\n\n';
+	        var textExport = '[h1]Mise a jour le '+today.getDate()+'/'+("0" + (today.getMonth() + 1)).slice(-2)+'/'+today.getFullYear()+'[/h1]\n\n';
 
 		textExport += '[table]\n';
 		textExport += '[tr]\n';
