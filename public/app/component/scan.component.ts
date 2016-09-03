@@ -30,7 +30,7 @@ export class ScanComponent {
 			players => this.players = players
 		);
 
-		this._socketService.io.on('scanPlayerDeleted', (data) => {
+		this._socketService.io.on('playerDeleted', (data) => {
 			this.deletePlayer(data.steamId);
 		});
 

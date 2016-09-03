@@ -10,7 +10,8 @@
 		"Achievement_100",
 		"Achievement_105",
 		"Achievement_125",
-		"Achievement_120"
+	        "Achievement_120",
+		"Achievement_151"
 	],
 	"achievementsHoe" : [
 		"Achievement_3",
@@ -23,7 +24,8 @@
 		"Achievement_102",
 		"Achievement_107",
 		"Achievement_127",
-		"Achievement_122"
+	        "Achievement_122",
+		"Achievement_123"
 	],
 	"achievementsSuicidal" : [
 		"Achievement_2",
@@ -36,7 +38,8 @@
 		"Achievement_101",
 		"Achievement_106",
 		"Achievement_126",
-		"Achievement_121"
+	        "Achievement_121",
+    		"Achievement_152"
 	],
 	"achievementsPerksMax" : [
 		"Achievement_34",
@@ -46,16 +49,17 @@
 		"Achievement_54",
 		"Achievement_59",
 		"Achievement_64",
-		"Achievement_114"
+                "Achievement_114",
+	        "Achievement_159"
 	],
 
 	"appId": "232090",
 
-	"nbHardWonNeededForKf2FrHoe": "11",
-	"nbHoeWonNeededForKf2FrHoe": "4",
-	"nbSuicidalWonNeededForKf2FrHoe": "10",
+	"nbHardWonNeededForKf2FrHoe": "12",
+	"nbHoeWonNeededForKf2FrHoe": "5",
+	"nbSuicidalWonNeededForKf2FrHoe": "11",
 	"nbPerksMaxNeededForKf2FrHoe": "6",
 
 	"timePlayedNeededForKf2Fr": "1200",
-	"timePlayedNeededForKf2FrHoe": "18000"
+	"timePlayedNeededForKf2FrHoe": "21000"
 }

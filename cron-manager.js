@@ -55,7 +55,7 @@ exports.init = () => {
       		retrieveFriendsNextPlayer();
 	      } else {
 		      if (response.status == 'playerDeleted') {
-			  	io.sockets.emit('scanPlayerDeleted', response);
+			  	io.sockets.emit('playerDeleted', response);
 		      } 
 
 		      if (response.inviteNeededForKf2fr == 1) {

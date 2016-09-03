@@ -32,7 +32,8 @@ export class NotificationService {
 /*		if (this.successNotifications.indexOf(data.type) != -1) {
 			data.isSuccess = true;
 		} else if (this.failNotifications.indexOf(data.type) != -1) {
-			data.isFail = true;
+		       console.log('fail');
+data.isFail = true;
 		} else if (this.updateNotifications.indexOf(data.type) != -1) {
 			data.isUpdate = true;
 		}

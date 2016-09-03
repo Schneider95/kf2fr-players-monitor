@@ -65,17 +65,6 @@ var updatePlayer = (steamId) => {
 
 	var player;
 
-	var deletePlayerBySteamId = (steamId) => {
-
-		return databaseRequestManager.deletePlayerBySteamId(steamId) 
-			.then((response) => {
-				return response;
-			})
-			.catch((err) => {
-				return err;
-			})
-	};
-
 	var getPlayerBySteamId = (steamId) => {
 
 		console.log('---------------------------------------------------------------------------------------');
@@ -97,10 +86,9 @@ var updatePlayer = (steamId) => {
 
 		return steamRequestManager.getPlayerSummaries(steamId) 
 			.then((response) => {
-
+                            player.name = response.response.players[0].personaname;
 				if (response.response.players[0].loccountrycode == undefined) {
 					console.log(colors.red('GetPlayerSummaries : Le joueur '+ steamId + ' n\'a pas précisé son pays')); 
-			    	deletePlayerBySteamId(steamId);
 			    	return {
 			    		'reason': 'unknownCountry',
 			    		'status': 'playerDeleted',
@@ -113,7 +101,6 @@ var updatePlayer = (steamId) => {
 					response.response.players[0].loccountrycode != 'BE')))
 			    { 
 			    	console.log(colors.red('GetPlayerSummaries : Le joueur '+ steamId + ' n\'est ni français ni belge, mais '+response.response.players[0].loccountrycode)); 
-			    	deletePlayerBySteamId(steamId);
 			    	return {
 			    		'country': response.response.players[0].loccountrycode,
 			    		'reason': 'badCountry',
@@ -123,7 +110,6 @@ var updatePlayer = (steamId) => {
 		    	}
 
 		    	console.log(colors.green('GetPlayerSummaries : Le joueur '+ steamId + ' est '+response.response.players[0].loccountrycode)); 
-				player.name = response.response.players[0].personaname;
 
 				return getOwnedGames(steamId);
 			})
@@ -141,7 +127,7 @@ var updatePlayer = (steamId) => {
 
 				if (games === undefined) {
 					console.log(colors.red('GetOwnedGames : Le joueur '+ steamId + ' n\'a pas le jeu '+statsConfig.appId)); 
-					deletePlayerBySteamId(steamId);
+
 					return {
 			    		'reason': 'dontHaveGame',
 			    		'status': 'playerDeleted',
@@ -167,7 +153,6 @@ var updatePlayer = (steamId) => {
 
 				if (player.timePlayed === undefined || !hasGame) { 
 			    	console.log(colors.red('GetOwnedGames : Le joueur '+ steamId + ' n\'a pas le jeu '+statsConfig.appId)); 
-					deletePlayerBySteamId(steamId);
 					return {
 			    		'reason': 'dontHaveGame',
 			    		'status': 'playerDeleted',
@@ -178,7 +163,6 @@ var updatePlayer = (steamId) => {
 		    	if (player.timePlayed < statsConfig.timePlayedNeededForKf2Fr) 
 				{ 
 			    	console.log(colors.red('GetOwnedGames : Le joueur '+ steamId + ' a le jeu '+statsConfig.appId+' mais n\'a que '+player.timePlayed/60+' heures de jeu.')); 
-					deletePlayerBySteamId(steamId);
 					return {
 			    		'reason': 'notEnoughTimePlayed', 
 			    		'status': 'playerDeleted',
@@ -300,13 +284,32 @@ var updatePlayer = (steamId) => {
 		return databaseRequestManager.updatePlayer(player);
 	};
 
-	return getPlayerBySteamId(steamId)
-		.then((response) => {
-			return response;
-		})
-		.catch((err) => {
-			return err;
-		})
+    return getPlayerBySteamId(steamId)
+        .then((response) => {
+	    if ('playerDeleted' === response.status && 0 === player.inviteAcceptedForKf2frHoe) {
+
+                return databaseRequestManager.deletePlayerBySteamId(steamId) 
+		    .then((response2) => {
+                        console.log(response);
+		        return response;
+		    })
+		    .catch((err) => {
+		        return err;
+		    });
+            } else {
+                return databaseRequestManager.updatePlayer(player)
+		    .then((response) => {
+                        console.log(response);
+		        return response;
+		    })
+		    .catch((err) => {
+		        return err;
+		    });
+	    }
+        })
+	.catch((err) => {
+            return err;
+	})
 };
 
 exports.retrieveFriendsNextPlayer = () => {

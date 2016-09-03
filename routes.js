@@ -24,7 +24,6 @@ exports.exportPlayersKf2FrHoe = (request, response) => {
 		textExport += '\t[th][b]Hard[/b][/th]\n';
 		textExport += '[/tr]\n';
 
-
 		players.forEach((player) => {
 			textExport += '[tr]\n';
 			textExport += '\t[td][url=http://steamcommunity.com/profiles/'+player.steamId+']' + player.name + '[/url][/td]\n';

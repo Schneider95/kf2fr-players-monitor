@@ -28,9 +28,9 @@ export class Kf2FrHoeInvitationAcceptedComponent {
 				this.players = players;
 			});
 
-		this._socketService.io.on('updateKf2FrHoePlayer', (data) => {
-			this.deletePlayer(data.steamId);
-		});
+	//	this._socketService.io.on('updateKf2FrHoePlayer', (data) => {
+	//		this.deletePlayer(data.steamId);
+	//	});
 	}
 
 	ngOnDestroy() {

@@ -35,7 +35,7 @@
             <div class="list-group">
               <table class="table">
                 <tr *ngFor="#notification of _notificationService.notifications">
-
+		  
                   <td *ngIf="notification.type == 'playerDeleted' && notification.reason == 'unknownCountry'" class="danger">
                     Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> à été supprimé, il n'a pas précisé son pays.
                   </td>
@@ -52,7 +52,7 @@
                     Le joueur <a target="_blank" href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> à été supprimé, il n'est pas francophone mais {{notification.country}}.
                   </td>
 
-                  <td *ngIf="notification.type == 'scanPlayerFriendsRetrieved'"  class="info">
+                  <td *ngIf="notification.type == 'playerFriendsRetrieved'"  class="info">
                     Les amis du joueur <a href="http://steamcommunity.com/profiles/{{notification.steamId}}">{{notification.steamId}}</a> ont été récupérés.
                   </td>
 

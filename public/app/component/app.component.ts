@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
-    this._socketService.io.on('scanPlayerDeleted', (data) => {
+    this._socketService.io.on('playerDeleted', (data) => {
       this._notificationService.add('playerDeleted', data);
     });
 
