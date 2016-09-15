@@ -87,18 +87,23 @@ var updatePlayer = (steamId) => {
 		return steamRequestManager.getPlayerSummaries(steamId) 
 			.then((response) => {
                             player.name = response.response.players[0].personaname;
-				if (response.response.players[0].loccountrycode == undefined) {
-					console.log(colors.red('GetPlayerSummaries : Le joueur '+ steamId + ' n\'a pas précisé son pays')); 
-			    	return {
-			    		'reason': 'unknownCountry',
-			    		'status': 'playerDeleted',
-			    		'steamId': steamId,
-			    	};
-				}
 
-				if (response.response.players[0].communityvisibilitystate != '3' ||
-					((response.response.players[0].loccountrycode != 'FR' && 
-					response.response.players[0].loccountrycode != 'BE')))
+			    if (1 === player.inviteAcceptedForKf2frHoe) {
+				return getOwnedGames(steamId);
+			    }
+			    
+			    if (response.response.players[0].loccountrycode == undefined) {
+				console.log(colors.red('GetPlayerSummaries : Le joueur '+ steamId + ' n\'a pas précisé son pays')); 
+				return {
+				    'reason': 'unknownCountry',
+			    	    'status': 'playerDeleted',
+			    	    'steamId': steamId,
+				};
+			    }
+
+			    if (response.response.players[0].communityvisibilitystate != '3' ||
+				((response.response.players[0].loccountrycode != 'FR' && 
+				response.response.players[0].loccountrycode != 'BE')))
 			    { 
 			    	console.log(colors.red('GetPlayerSummaries : Le joueur '+ steamId + ' n\'est ni français ni belge, mais '+response.response.players[0].loccountrycode)); 
 			    	return {
@@ -107,14 +112,14 @@ var updatePlayer = (steamId) => {
 			    		'status': 'playerDeleted',
 			    		'steamId': steamId,
 			    	};
-		    	}
+		    	    }
 
-		    	console.log(colors.green('GetPlayerSummaries : Le joueur '+ steamId + ' est '+response.response.players[0].loccountrycode)); 
+		    	    console.log(colors.green('GetPlayerSummaries : Le joueur '+ steamId + ' est '+response.response.players[0].loccountrycode)); 
 
-				return getOwnedGames(steamId);
+			    return getOwnedGames(steamId);
 			})
 			.catch((err) => {
-				return err;
+			    return err;
 			})
 	};
 
@@ -137,7 +142,7 @@ var updatePlayer = (steamId) => {
 
 				games.forEach((element) => {
 					if (element.appid == statsConfig.appId) {
-						hasGame = true;
+					    hasGame = true;
 						player.timePlayed = element.playtime_forever;
 						player.timePlayed2LastWeeks = element.playtime_2weeks;
 
@@ -203,7 +208,8 @@ var updatePlayer = (steamId) => {
 				    	}
 
 				    	if (statsConfig.achievementsHoe.indexOf(element.name) != '-1') {
-			    			player.nbHoeWon++;
+					    
+			    		    player.nbHoeWon++;
 				    	}
 
 				    	if (statsConfig.achievementsPerksMax.indexOf(element.name) != '-1') {
@@ -286,7 +292,7 @@ var updatePlayer = (steamId) => {
 
     return getPlayerBySteamId(steamId)
         .then((response) => {
-	    if ('playerDeleted' === response.status && 0 === player.inviteAcceptedForKf2frHoe) {
+	    if ('playerDeleted' === response.status) {
 
                 return databaseRequestManager.deletePlayerBySteamId(steamId) 
 		    .then((response2) => {
