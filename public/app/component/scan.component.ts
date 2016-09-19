@@ -7,54 +7,47 @@ import { SocketService } from '../service/socket.service';
 import { TimePlayedPipe } from '../pipe/time-played.pipe';
 
 @Component({
-	pipes: [HumanReadableDatePipe, TimePlayedPipe],
-	selector: 'scan',
-	templateUrl: 'views/scan.html'
+    pipes: [HumanReadableDatePipe, TimePlayedPipe],
+    selector: 'scan',
+    templateUrl: 'views/scan.html'
 })
 
 export class ScanComponent {
-
-	players: Player[] = [];
-
-	constructor(
-		private _playerService: PlayerService,
-		private _socketService: SocketService,
-		private _notificationService: NotificationService
-	) { 
-
-	}
-
-	ngOnInit() {
-
-		this._playerService.getPlayersToScan().subscribe(
-			players => this.players = players
-		);
-
-		this._socketService.io.on('playerDeleted', (data) => {
-			this.deletePlayer(data.steamId);
+    
+    players: Player[] = [];
+    
+    constructor(
+	private _playerService: PlayerService,
+	private _socketService: SocketService,
+	private _notificationService: NotificationService
+    ) { 
+	
+    }
+    
+    ngOnInit() {
+	
+	this._playerService.getPlayersToScan().subscribe(
+	    players => this.players = players
+	);
+	
+	this._socketService.io.on('notification', (response) => {
+	    console.log(response);
+	    if ('retrieveFriends' === response.reason) { 	
+		response.friends.forEach((player) => {
+		    this.players.push({ 'steamId': player.steamid });
 		});
-
-		this._socketService.io.on('scanPlayerFriendsRetrieved', (data) => {
-			data.friends.forEach((player) => {
-				this.players.push({ 'steamId': player.steamid });
-			});
-		});
-
-		this._socketService.io.on('scanPlayerNeedInviteForKf2Fr', (data) => {
-			this.deletePlayer(data.steamId);
-		});
-
-		this._socketService.io.on('scanPlayerNeedInviteForKf2FrHoe', (data) => {
-			this.deletePlayer(data.steamId);
-		});
-	}
-
-	ngOnDestroy() {
-		this._socketService = null;
-	}
-
-	public deletePlayer(steamId) {
-		var index = this.players.findIndex((player) => player.steamId === steamId);
-		this.players.splice(index, 1);
-	}
+	    } else {
+		this.deletePlayer(response.player.steamId); 
+	    }
+	});
+    }
+    
+    ngOnDestroy() {
+	this._socketService = null;
+    }
+    
+    public deletePlayer(steamId) {
+	var index = this.players.findIndex((player) => player.steamId === steamId);
+	this.players.splice(index, 1);
+    }
 }

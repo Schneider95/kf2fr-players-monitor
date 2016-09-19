@@ -15,97 +15,86 @@ import {SocketService} from '../service/socket.service';
 import {StatsConfigService} from '../config/stats-config'; 
 
 @Component({
-  selector: 'main',
-  templateUrl: 'views/main.html',
-  directives: [ROUTER_DIRECTIVES], 
-  providers: [
-    ROUTER_PROVIDERS, 
-    HTTP_BINDINGS,
-    NotificationService,
-    ParametersService, 
-    PlayerService,
-    SocketService,
-    StatsConfigService
-  ]
+    selector: 'main',
+    templateUrl: 'views/main.html',
+    directives: [ROUTER_DIRECTIVES], 
+    providers: [
+	ROUTER_PROVIDERS, 
+	HTTP_BINDINGS,
+	NotificationService,
+	ParametersService, 
+	PlayerService,
+	SocketService,
+	StatsConfigService
+    ]
 })
 
 @RouteConfig([
     {
-      path: '/scan',
-      name: 'Scan',
-      component: ScanComponent,
-      useAsDefault: true
+	path: '/scan',
+	name: 'Scan',
+	component: ScanComponent,
+	useAsDefault: true
     },
     {
-      path: '/kf2FrInviteNeeded',
-      name: 'Kf2FrInviteNeeded',
-      component: Kf2FrInvitationNeededComponent
+	path: '/kf2FrInviteNeeded',
+	name: 'Kf2FrInviteNeeded',
+	component: Kf2FrInvitationNeededComponent
     },
     {
-      path: '/kf2FrHoePotentialPlayers',
-      name: 'Kf2FrHoePotentialPlayers',
-      component: Kf2FrHoePotentialPlayersComponent
+	path: '/kf2FrHoePotentialPlayers',
+	name: 'Kf2FrHoePotentialPlayers',
+	component: Kf2FrHoePotentialPlayersComponent
     },
     {
-      path: '/kf2FrHoeInviteNeeded',
-      name: 'Kf2FrHoeInviteNeeded',
-      component: Kf2FrHoeInvitationNeededComponent
+	path: '/kf2FrHoeInviteNeeded',
+	name: 'Kf2FrHoeInviteNeeded',
+	component: Kf2FrHoeInvitationNeededComponent
     },
     {
-      path: '/kf2FrHoeInviteSent',
-      name: 'Kf2FrHoeInviteSent',
-      component: Kf2FrHoeInvitationSentComponent
+	path: '/kf2FrHoeInviteSent',
+	name: 'Kf2FrHoeInviteSent',
+	component: Kf2FrHoeInvitationSentComponent
     },
     {
-      path: '/kf2FrHoeInviteAccepted',
-      name: 'Kf2FrHoeInviteAccepted',
-      component: Kf2FrHoeInvitationAcceptedComponent
+	path: '/kf2FrHoeInviteAccepted',
+	name: 'Kf2FrHoeInviteAccepted',
+	component: Kf2FrHoeInvitationAcceptedComponent
     },
 
 ])
 
 export class AppComponent implements OnInit {
 
-  constructor(
-    private _notificationService: NotificationService,
-    private _playerService: PlayerService,
-    private _socketService: SocketService
-   ) { }
+    public timePlayedNeededForKf2FrHoe: number;
+    public nbPerksMaxNeeded: number;
+    public nbHoeWonNeeded: number;
+    public nbSuicidalWonNeeded: number;
+    public nbHardWonNeeded: number;
+    
+    constructor(
+	private _playerService: PlayerService,
+	private _socketService: SocketService,
+	private _notificationService: NotificationService,
+	private _statsConfigService: StatsConfigService
+    ) {
+	this.timePlayedNeededForKf2FrHoe = this._statsConfigService.timePlayedNeededForKf2FrHoe;
+	this.nbPerksMaxNeeded = this._statsConfigService.nbPerksMaxNeeded;
+	this.nbHoeWonNeeded = this._statsConfigService.nbHoeWonNeeded;
+	this.nbSuicidalWonNeeded = this._statsConfigService.nbSuicidalWonNeeded;
+	this.nbHardWonNeeded = this._statsConfigService.nbHardWonNeeded;
+    }
 
-  ngOnInit() {
+    ngOnInit() {
 
-    this._socketService.io.on('playerDeleted', (data) => {
-      this._notificationService.add('playerDeleted', data);
-    });
+	this._socketService.io.on('notification', (data) => {
+	    this._notificationService.add(data.reason, data.player);
+	});
+    }
 
-    this._socketService.io.on('scanPlayerFriendsRetrieved', (data) => {
-      this._notificationService.add('scanPlayerFriendsRetrieved', data);
-    });
-
-    this._socketService.io.on('scanPlayerNeedInviteForKf2Fr', (data) => {
-      this._notificationService.add('scanPlayerNeedInviteForKf2Fr', data);
-    });
-
-    this._socketService.io.on('scanPlayerNeedInviteForKf2FrHoe', (data) => {
-      this._notificationService.add('scanPlayerNeedInviteForKf2FrHoe', data);
-    });
-
-    this._socketService.io.on('updateKf2FrHoePlayer', (data) => {
-      this._notificationService.add('updateKf2FrHoePlayer', data);
-    });
-
-    this._socketService.io.on('inviteNeededForKf2FrHoe', (data) => {
-      this._notificationService.add('inviteNeededForKf2FrHoe', data);
-    });
-
-    this._socketService.io.on('inviteNotNeededForKf2FrHoe', (data) => {
-      this._notificationService.add('inviteNotNeededForKf2FrHoe', data);
-    });
-  }
-
-  getNotifications() {
-    return this._notificationService.getNotifications();
-  }
+    getNotifications() {
+	return this._notificationService.getNotifications();
+    }
 }
 
 

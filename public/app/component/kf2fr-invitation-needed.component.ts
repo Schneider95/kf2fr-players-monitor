@@ -7,43 +7,45 @@ import { SocketService } from '../service/socket.service';
 import { TimePlayedPipe } from '../pipe/time-played.pipe';
 
 @Component({
-	pipes: [HumanReadableDatePipe, TimePlayedPipe],
-	selector: 'kf2frhoe-invitation-needed',
-	templateUrl: 'views/kf2fr-invitation-needed.html'
+    pipes: [HumanReadableDatePipe, TimePlayedPipe],
+    selector: 'kf2frhoe-invitation-needed',
+    templateUrl: 'views/kf2fr-invitation-needed.html'
 })
 
 export class Kf2FrInvitationNeededComponent {
+    
+    players: Player[] = [];
+    
+    constructor(
+	private _playerService: PlayerService,
+	private _socketService: SocketService,
+	private _notificationService: NotificationService
+    ) { }
+    
+    ngOnInit() {
+	this._playerService.getPlayersKf2FrInvitationNeeded().subscribe(
+	    players => this.players = players
+	);
+	
+	this._socketService.io.on('notification', (response) => {
+	    if ('scanPlayerNeedInviteForKf2Fr' === response.reason) {
+		this.players.push(response.player);
+	    }
+	});
+    }
+    
+    inviteSentForKf2Fr(steamId) {
 
-	players: Player[] = [];
-
-	constructor(
-		private _playerService: PlayerService,
-		private _socketService: SocketService,
-		private _notificationService: NotificationService
-	) { }
-
-	ngOnInit() {
-		this._playerService.getPlayersKf2FrInvitationNeeded().subscribe(
-			players => this.players = players
-		);
-
-		this._socketService.io.on('scanPlayerNeedInviteForKf2Fr', (player) => {
-			this.players.push(player);
-		});
-	}
-
-	inviteSentForKf2Fr(steamId) {
-
-		var playerIndex = this.players.findIndex(player => player.steamId === steamId);
-
-		this.players[playerIndex].updatePending = true;
-
-		this._playerService
-			.inviteSentForKf2Fr(this.players[playerIndex])
-			.subscribe((player) => {
-				this.players[playerIndex].updatePending = false;
-				this._notificationService.add('inviteSentForKf2Fr', this.players[playerIndex]);
-				this.players.splice(playerIndex, 1);
-			});
-	}
+	var playerIndex = this.players.findIndex(player => player.steamId === steamId);
+	
+	this.players[playerIndex].updatePending = true;
+	
+	this._playerService
+	    .inviteSentForKf2Fr(this.players[playerIndex])
+	    .subscribe((response) => {
+		this.players[playerIndex].updatePending = false;
+		this._notificationService.add('inviteSentForKf2Fr', this.players[playerIndex]);
+		this.players.splice(playerIndex, 1);
+	    });
+    }
 }

@@ -1,4 +1,6 @@
+import {Player} from '../model/player.interface';
+
 export interface Notification {
-	steamId: string;
-	type: string;
+    player: Player;
+    reason: string;
 }
